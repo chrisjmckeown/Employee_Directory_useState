@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Wrapper from "./Wrapper";
 import Header from "./Header";
+import Main from "./Main";
 import SearchForm from "./SearchForm";
 import MemberList from "./MemberList";
 import Footer from "./Footer";
@@ -19,26 +20,20 @@ class EmployeeContainer extends Component {
   componentDidMount() {
     API.getRandomEmployees()
       .then((res) => {
-        console.log(res.data.results);
-        this.setState({ members: res.data.results });
-        this.setState({ results: res.data.results });
+        this.setState((prevState) => (prevState.members = res.data.results));
+        this.setState((prevState) => (prevState.results = res.data.results));
       })
       .catch((err) => console.log(err));
   }
 
-  handleSearchChange = (event) => {
+  handleSearchChange = async (event) => {
     event.preventDefault();
     const name = event.target.name;
     const value = event.target.value;
     console.log(name, value);
-    this.setState({
-      [name]: value,
-    });
+    await this.setState((prevState) => (prevState[name] = value));
     const { search, filter, members } = this.state;
-    this.setState({ results: members });
-
-    console.log("search", this.state.search);
-    console.log("filter", this.state.filter);
+    await this.setState((prevState) => (prevState.results = members));
 
     const searchList = members
       .filter((item) =>
@@ -56,18 +51,18 @@ class EmployeeContainer extends Component {
 
   render() {
     return (
-      <div>
-        <Wrapper>
-          <Header />
+      <Wrapper>
+        <Header />
+        <Main>
           <SearchForm
             search={this.state.search}
             filter={this.state.filter}
             handleSearchChange={this.handleSearchChange}
           />
-          <MemberList members={this.state.results} />
-          <Footer />
-        </Wrapper>
-      </div>
+          <MemberList results={this.state.results} />
+        </Main>
+        <Footer />
+      </Wrapper>
     );
   }
 }
