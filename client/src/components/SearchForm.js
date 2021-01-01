@@ -2,12 +2,17 @@ import React from "react";
 
 function SearchForm(props) {
   return (
-      <form>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-6'>
-              <div className='form-group'>
-                <label htmlFor='search'>Search:</label>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-lg-6'>
+          <div className='form-group'>
+            <div className='row'>
+              <div className='col-sm-2'>
+                <label htmlFor='search' className='control-label'>
+                  Search:
+                </label>
+              </div>
+              <div className='col-sm-10'>
                 <input
                   onChange={props.handleSearchChange}
                   value={props.search}
@@ -19,9 +24,17 @@ function SearchForm(props) {
                 />
               </div>
             </div>
-            <div className='col-md-6'>
-              <div className='form-group'>
-                <label htmlFor='filter'>Filter</label>
+          </div>
+        </div>
+        <div className='col-lg-6'>
+          <div className='form-group'>
+            <div className='row'>
+              <div className='col-sm-2'>
+                <label htmlFor='filter' className='control-label'>
+                  Filter:
+                </label>
+              </div>
+              <div className='col-sm-10'>
                 <select
                   onChange={props.handleSearchChange}
                   value={props.filter}
@@ -37,7 +50,8 @@ function SearchForm(props) {
             </div>
           </div>
         </div>
-      </form>
+      </div>
+    </div>
   );
 }
 

@@ -24,15 +24,14 @@ body,
   text-align: center;
 }
 /* styling the header */
-.header {
+.header h1 {
   background-color: var(--blue);
-  flex: 0 1 auto;
-  width: 100%;
-  color: white;
   height: 80px;
-  justify-content: center; /* For horizontal alignment */
-  align-items: center; /* For vertical alignment */
+  line-height: 80px;
+  text-align: center;
+  color: white;
 }
+
 /* styling the main */
 .main {
   flex: 1 1 auto;
@@ -74,16 +73,9 @@ body {
   font-family: Arial;
 }
 
-/* table {
-  width: 100%;
+.form-group{
+  padding-top: 1.2rem;
 }
-
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-} */
 
 /* media query for 768 and smaller screens */
 /* reducing margins */
