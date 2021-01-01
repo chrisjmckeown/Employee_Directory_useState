@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
 import Header from "./Header";
 import Main from "./Main";
@@ -8,63 +8,59 @@ import Footer from "./Footer";
 import API from "../utils/API";
 import "./style.css";
 
-class EmployeeContainer extends Component {
-  state = {
-    search: "",
-    filter: "",
-    members: [],
-    results: [],
-  };
+function EmployeeContainer() {
+  const [members, setMembers] = useState({ members: [] });
+  const [results, setResults] = useState({ results: [] });
+  const [search, setSearch] = useState({ search: "", filter: "" });
 
-  // When the component mounts, get a list of random employees and update this.state.employees
-  componentDidMount() {
+  // When the component mounts, get a list of random employees and update state
+  useEffect(() => {
     API.getRandomEmployees()
       .then((res) => {
-        this.setState((prevState) => (prevState.members = res.data.results));
-        this.setState((prevState) => (prevState.results = res.data.results));
+        setMembers({ members: res.data.results });
+        setResults({ results: res.data.results });
       })
       .catch((err) => console.log(err));
-  }
+  }, []);
 
-  handleSearchChange = async (event) => {
+  useEffect(() => {
+    const searchList = members.members
+      .filter((item) =>
+      search.filter === ""
+          ? true
+          : item.gender.toLowerCase().trim() ===
+          search.filter.toLowerCase().trim()
+      )
+      .filter((item) =>
+        search.search === ""
+          ? true
+          : item.name.first.toLowerCase().includes(search.search.toLowerCase())
+      );
+    setResults({ results: searchList });
+  }, [members.members, search]);
+
+  const handleSearchChange = (event) => {
     event.preventDefault();
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name, value);
-    await this.setState((prevState) => (prevState[name] = value));
-    const { search, filter, members } = this.state;
-    await this.setState((prevState) => (prevState.results = members));
-
-    const searchList = members
-      .filter((item) =>
-        filter === ""
-          ? true
-          : item.gender.toLowerCase().trim() === filter.toLowerCase().trim()
-      )
-      .filter((item) =>
-        search === ""
-          ? true
-          : item.name.first.toLowerCase().includes(search.toLowerCase())
-      );
-    this.setState({ results: searchList });
+    setSearch({ ...search, [name]: value });
+    setResults({ results: members.members });
   };
 
-  render() {
-    return (
-      <Wrapper>
-        <Header />
-        <Main>
-          <SearchForm
-            search={this.state.search}
-            filter={this.state.filter}
-            handleSearchChange={this.handleSearchChange}
-          />
-          <MemberList results={this.state.results} />
-        </Main>
-        <Footer />
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper>
+      <Header />
+      <Main>
+        <SearchForm
+          search={search.search}
+          filter={search.filter}
+          handleSearchChange={handleSearchChange}
+        />
+        <MemberList results={results.results} />
+      </Main>
+      <Footer />
+    </Wrapper>
+  );
 }
 
 export default EmployeeContainer;

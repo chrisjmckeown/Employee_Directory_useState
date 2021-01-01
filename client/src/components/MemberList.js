@@ -4,7 +4,7 @@ import "./style.css";
 function MemberList(props) {
   return (
     <div className='container'>
-      <div class='table-responsive'>
+      <div className='table-responsive'>
         <table className='table table-bordered table-hover'>
           <thead className='thead-light'>
             <tr>
