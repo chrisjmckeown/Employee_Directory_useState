@@ -66,7 +66,7 @@ Home page:
 
 ### Heroku Deployment
 
-View the deployed app here: [deployed app](https://secret-mountain-35285.herokuapp.com/)
+View the deployed app here: [deployed app](https://fast-escarpment-47591.herokuapp.com/)
 
 ## License
  
