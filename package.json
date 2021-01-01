@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/chrisjmckeown/Employee_Directory/issues"
   },
-  "homepage": "https://github.com/chrisjmckeown/Employee_Directory#readme"
+  "homepage": "https://github.com/chrisjmckeown/Employee_Directory#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
